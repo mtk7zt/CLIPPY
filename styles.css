@@ -1,5 +1,5 @@
 :root {
-  color-scheme: dark;
+  color-scheme: light dark;
   --bg: #07111c;
   --bg-2: #0c1622;
   --surface: rgba(14, 23, 34, 0.88);
@@ -15,11 +15,11 @@
   --success: #2ed38a;
   --warning: #f3b84f;
   --danger: #ff6b77;
-  --shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
-  --radius-xl: 28px;
-  --radius-lg: 22px;
-  --radius-md: 16px;
-  --radius-sm: 12px;
+  --shadow: 0 28px 90px rgba(0, 0, 0, 0.34);
+  --radius-xl: 34px;
+  --radius-lg: 26px;
+  --radius-md: 18px;
+  --radius-sm: 14px;
   --gap: 18px;
   --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
@@ -40,11 +40,13 @@ body {
   margin: 0;
   min-height: 100%;
   background:
-    radial-gradient(circle at top left, rgba(79, 141, 255, 0.18), transparent 30%),
-    radial-gradient(circle at 85% 12%, rgba(103, 209, 255, 0.16), transparent 18%),
+    radial-gradient(circle at top left, rgba(79, 141, 255, 0.16), transparent 28%),
+    radial-gradient(circle at 85% 12%, rgba(103, 209, 255, 0.14), transparent 18%),
     linear-gradient(180deg, #08111c 0%, #050c14 100%);
   color: var(--text);
   font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 body {
@@ -79,6 +81,54 @@ a {
   gap: 16px;
   margin-bottom: 16px;
   padding: 0 4px;
+}
+
+.hero-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  gap: 16px;
+  padding: 22px;
+  margin-bottom: 18px;
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(138, 163, 194, 0.14);
+  background:
+    radial-gradient(circle at top right, rgba(79, 141, 255, 0.14), transparent 34%),
+    linear-gradient(180deg, rgba(18, 28, 42, 0.98), rgba(14, 21, 33, 0.98));
+  backdrop-filter: blur(24px);
+  box-shadow: var(--shadow);
+}
+
+.hero-shell-copy {
+  max-width: 68ch;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--accent-2);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.hero-shell h2 {
+  margin: 0;
+  font-size: clamp(28px, 3.8vw, 52px);
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+
+.hero-shell p {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.hero-shell-pills {
+  display: grid;
+  gap: 10px;
+  align-content: start;
 }
 
 .brand {
@@ -162,7 +212,7 @@ a {
 
 .grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.45fr) minmax(340px, 0.95fr);
+  grid-template-columns: minmax(360px, 1.05fr) minmax(0, 0.95fr);
   gap: 18px;
   align-items: start;
 }
@@ -342,7 +392,7 @@ a {
 }
 
 .card {
-  background: linear-gradient(180deg, rgba(20, 30, 45, 0.94), rgba(14, 22, 34, 0.94));
+  background: linear-gradient(180deg, rgba(20, 30, 45, 0.92), rgba(14, 22, 34, 0.94));
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   padding: 16px;
@@ -782,9 +832,9 @@ a {
 
 .phone-frame {
   width: 100%;
-  max-width: 430px;
-  margin-left: auto;
-  border-radius: 44px;
+  max-width: 460px;
+  margin-left: 0;
+  border-radius: 48px;
   padding: 12px;
   background: linear-gradient(180deg, rgba(17, 26, 39, 0.96), rgba(11, 18, 28, 0.98));
   border: 1px solid rgba(148, 170, 197, 0.14);
@@ -792,9 +842,9 @@ a {
 }
 
 .phone {
-  border-radius: 34px;
+  border-radius: 38px;
   overflow: hidden;
-  min-height: 900px;
+  min-height: 940px;
   background: linear-gradient(180deg, #08111a 0%, #060c14 100%);
   border: 1px solid rgba(148, 170, 197, 0.12);
 }
@@ -993,6 +1043,10 @@ a {
 }
 
 @media (max-width: 1280px) {
+  .hero-shell {
+    grid-template-columns: 1fr;
+  }
+
   .grid {
     grid-template-columns: 1fr;
   }
@@ -1024,6 +1078,10 @@ a {
 
   .global-status {
     justify-content: flex-start;
+  }
+
+  .hero-shell {
+    padding: 18px;
   }
 
   .card-grid,

@@ -1,4 +1,4 @@
-const app = document.querySelector("#app");
+﻿const app = document.querySelector("#app");
 
 const state = {
   phoneTab: "devices",
@@ -34,7 +34,7 @@ const devices = [
   },
   {
     name: "iPhone 15 Pro",
-    detail: "iOS 18 · 192.168.1.42",
+    detail: "iPhone · 192.168.1.42",
     status: ["Manual IP", "Verified"],
     battery: "74%",
     signal: "Good",
@@ -167,7 +167,7 @@ const desktopPages = {
   },
   settings: {
     title: "Settings",
-    subtitle: "Plugins, layout preferences, motion, icons, and style mobility live here so the app stays powerful without becoming invasive.",
+    subtitle: "Plugins, layout controls, motion, icons, and style mobility live here so the app stays powerful without becoming invasive.",
   },
 };
 
@@ -328,7 +328,7 @@ function desktopSettingsPanel() {
       <div class="section-title">
         <div>
           <h4>Settings hub</h4>
-          <small>Everything that isn’t device-specific lives here: plugins, preferences, motion, icons, and layout mobility.</small>
+          <small>Everything that isn’t device-specific lives here: plugins, motion, icons, and layout mobility.</small>
         </div>
         ${chip("Implementable", "good")}
       </div>
@@ -353,7 +353,7 @@ function desktopSettingsPanel() {
           <div class="section-title">
             <div>
               <h4>Plugin center</h4>
-              <small>Plugins and preferences share one settings surface.</small>
+              <small>Plugins and capabilities share one settings surface.</small>
             </div>
             ${chip("Scoped", "info")}
           </div>
@@ -1071,7 +1071,7 @@ function settingsTab() {
       <div class="section-title" style="margin-bottom:10px;">
         <div>
           <h4 style="margin-bottom:4px;">Settings</h4>
-          <small>Plugins, preferences, styles, and device policies.</small>
+          <small>Plugins, styles, and device policies.</small>
         </div>
         ${chip("All in one place", "info")}
       </div>
@@ -1200,9 +1200,23 @@ function root() {
         </div>
       </div>
 
+      <section class="hero-shell">
+        <div class="hero-shell-copy">
+          <p class="eyebrow">iOS-first redesign</p>
+          <h2>Large titles, Liquid Glass depth, and honest connection states.</h2>
+          <p>Clippy now follows the iOS kits directly: native-feeling sheets, widget-like surfaces, a clipboard notebook, and a settings hub that keeps plugins and preferences in one place.</p>
+        </div>
+        <div class="hero-shell-pills">
+          <span class="pill">${icon("device")} <strong>iOS-first</strong> mobile lead</span>
+          <span class="pill">${icon("wifi")} <strong>Disconnected</strong> turns red</span>
+          <span class="pill">${icon("clipboard")} <strong>Clipboard notebook</strong> local archive</span>
+          <span class="pill">${icon("settings")} <strong>Settings</strong> not Preferences</span>
+        </div>
+      </section>
+
       <div class="grid">
-        ${desktopContent()}
         ${phoneContent()}
+        ${desktopContent()}
       </div>
 
       <div style="margin-top:18px;">${supportSection()}</div>
@@ -1250,7 +1264,7 @@ function bind() {
         if (host instanceof HTMLInputElement) state.manualHost = host.value.trim() || state.manualHost;
         if (port instanceof HTMLInputElement) state.manualPort = port.value.trim() || state.manualPort;
         state.connectionMode = "manual";
-        devices[1].detail = `iOS 18 · ${state.manualHost}`;
+        devices[1].detail = `iPhone · ${state.manualHost}`;
       }
       if (action === "pair-qr") state.connectionMode = "local";
       if (action === "toggle-relay" && state.relayEnabled) state.connectionMode = "relay";
@@ -1285,3 +1299,5 @@ function render() {
 
 applyUrlState();
 render();
+
+
