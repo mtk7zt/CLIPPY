@@ -1,4 +1,4 @@
-﻿export default {
+export default {
   async fetch() {
     const html = String.raw`<!doctype html>
 <html lang="en">
@@ -11,189 +11,512 @@
     :root {
       color-scheme: dark light;
       --bg: #08111b;
-      --bg2: #0c1622;
-      --surface: rgba(13, 21, 32, 0.86);
-      --surface-strong: rgba(18, 28, 40, 0.96);
-      --line: rgba(146, 170, 202, 0.16);
-      --line-strong: rgba(146, 170, 202, 0.26);
+      --bg-2: #0b1420;
+      --surface: rgba(15, 23, 35, 0.82);
+      --surface-strong: rgba(19, 29, 43, 0.96);
+      --surface-light: rgba(255, 255, 255, 0.95);
+      --line: rgba(147, 169, 198, 0.16);
+      --line-strong: rgba(147, 169, 198, 0.28);
       --text: #f6f8fc;
-      --muted: #9dadbf;
-      --accent: #4f8dff;
-      --accent-2: #69d4ff;
-      --green: #31d38d;
-      --yellow: #f3b84f;
-      --shadow: 0 28px 80px rgba(0, 0, 0, .34);
-      --radius-xl: 28px;
-      --radius-lg: 22px;
-      --radius-md: 16px;
-      --radius-sm: 12px;
+      --muted: #a1afc1;
+      --muted-2: #7b899d;
+      --accent: #4c8fff;
+      --accent-2: #6bd1ff;
+      --green: #38d987;
+      --yellow: #f0b44e;
+      --red: #ff6471;
+      --shadow: 0 30px 90px rgba(0, 0, 0, 0.38);
+      --radius-xl: 34px;
+      --radius-lg: 26px;
+      --radius-md: 18px;
+      --radius-sm: 14px;
       --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
+
     @media (prefers-color-scheme: light) {
       :root {
         --bg: #f4f7fc;
-        --bg2: #edf2f8;
+        --bg-2: #eef3f9;
         --surface: rgba(255, 255, 255, 0.9);
         --surface-strong: rgba(255, 255, 255, 0.98);
-        --line: rgba(132, 151, 177, 0.18);
-        --line-strong: rgba(132, 151, 177, 0.28);
-        --text: #101620;
-        --muted: #566072;
-        --shadow: 0 24px 70px rgba(30, 43, 63, .12);
+        --line: rgba(129, 149, 177, 0.18);
+        --line-strong: rgba(129, 149, 177, 0.3);
+        --text: #101722;
+        --muted: #5a6578;
+        --muted-2: #748095;
+        --shadow: 0 24px 70px rgba(28, 41, 59, 0.12);
       }
     }
+
     * { box-sizing: border-box; }
     html, body { margin: 0; min-height: 100%; }
     body {
       font-family: var(--font);
-      background:
-        radial-gradient(circle at 12% 10%, rgba(79, 141, 255, .18), transparent 24%),
-        radial-gradient(circle at 88% 12%, rgba(105, 212, 255, .16), transparent 18%),
-        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
       color: var(--text);
+      background:
+        radial-gradient(circle at 12% 12%, rgba(76, 143, 255, 0.18), transparent 28%),
+        radial-gradient(circle at 88% 14%, rgba(107, 209, 255, 0.14), transparent 18%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
     a { color: inherit; text-decoration: none; }
     .shell {
-      width: min(1540px, calc(100vw - 28px));
+      width: min(1560px, calc(100vw - 28px));
       margin: 0 auto;
-      padding: 22px 0 30px;
+      padding: 20px 0 28px;
     }
-    .topbar, .hero, .grid, .footer {
-      border: 1px solid var(--line);
-      background: var(--surface);
-      backdrop-filter: blur(22px);
-      box-shadow: var(--shadow);
-      border-radius: var(--radius-xl);
-    }
+
     .topbar {
-      display:flex; justify-content:space-between; align-items:center; gap:16px;
-      padding: 18px 22px; margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+      padding: 0 4px;
     }
-    .brand { display:flex; align-items:center; gap:14px; }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
     .mark {
-      width: 38px; height: 38px; border-radius: 14px;
-      background: linear-gradient(180deg, rgba(79,141,255,.22), rgba(79,141,255,.08));
-      border: 1px solid rgba(79,141,255,.35);
-      display:grid; place-items:center; font-weight:700; color: var(--accent-2);
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: var(--accent-2);
+      border: 1px solid rgba(76, 143, 255, 0.32);
+      background: linear-gradient(180deg, rgba(76, 143, 255, 0.22), rgba(76, 143, 255, 0.08));
     }
-    .brand h1 { margin:0; font-size: 18px; letter-spacing:-.03em; }
-    .brand p, .hero p, .card p, .small { margin:0; color: var(--muted); }
-    .chips { display:flex; flex-wrap:wrap; gap:10px; justify-content:flex-end; }
+    .brand h1 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+    .brand p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+    }
     .chip {
-      padding: 9px 12px; border-radius:999px; border:1px solid var(--line);
-      background: rgba(255,255,255,.02); font-size: 12px; color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      font-size: 12px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
     }
-    .chip strong { color: var(--text); font-weight: 600; }
-    .hero { padding: 26px; margin-bottom: 18px; }
-    .hero-grid { display:grid; grid-template-columns: 1.2fr .8fr; gap: 18px; align-items:start; }
-    h2 {
-      margin:0; font-size: clamp(34px, 4vw, 58px); line-height: .98; letter-spacing: -.05em;
+    .chip strong { color: var(--text); font-weight: 700; }
+    .chip.danger {
+      color: #ffc3ca;
+      border-color: rgba(255, 100, 113, 0.22);
+      background: rgba(255, 100, 113, 0.08);
     }
-    .lead { margin-top: 14px; max-width: 62ch; font-size: 15px; line-height: 1.7; }
-    .hero-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top: 18px; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(340px, 0.9fr);
+      gap: 18px;
+      padding: 22px;
+      margin-bottom: 18px;
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(145, 167, 196, 0.16);
+      background:
+        radial-gradient(circle at top right, rgba(76, 143, 255, 0.16), transparent 36%),
+        linear-gradient(180deg, rgba(19, 29, 43, 0.98), rgba(13, 21, 32, 0.96));
+      backdrop-filter: blur(24px);
+      box-shadow: var(--shadow);
+    }
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--accent-2);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .hero h2 {
+      margin: 0;
+      font-size: clamp(34px, 4.1vw, 58px);
+      line-height: 0.97;
+      letter-spacing: -0.07em;
+      max-width: 11ch;
+    }
+    .lead {
+      margin: 14px 0 0;
+      max-width: 62ch;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.75;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
     .btn {
-      display:inline-flex; align-items:center; gap:8px; padding: 12px 16px;
-      border-radius: 14px; border: 1px solid var(--line); background: rgba(255,255,255,.03);
-      color: var(--text); font-weight:600; font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 14px;
     }
     .btn.primary {
-      background: linear-gradient(180deg, rgba(79,141,255,.98), rgba(58,119,246,.98));
-      border-color: rgba(79,141,255,.25);
+      background: linear-gradient(180deg, rgba(76, 143, 255, 1), rgba(59, 118, 245, 1));
+      border-color: rgba(76, 143, 255, 0.24);
     }
-    .stack { display:grid; gap: 14px; }
-    .card {
-      border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface-strong);
-      padding: 18px;
-    }
-    .card h3 { margin:0 0 8px; font-size: 18px; letter-spacing:-.03em; }
-    .theme-grid, .two-col, .mini-grid { display:grid; gap: 14px; }
-    .theme-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .swatches { display:flex; gap:10px; flex-wrap:wrap; margin-top: 14px; }
-    .sw { width: 44px; height: 44px; border-radius: 14px; border: 1px solid var(--line); }
-    .sw.big { width: 100%; height: 84px; border-radius: 20px; }
-    .soft-row { display:flex; flex-wrap:wrap; gap: 10px; margin-top: 14px; }
-    .soft-pill {
-      padding: 9px 12px; border-radius: 999px; border:1px solid var(--line);
-      color: var(--muted); background: rgba(255,255,255,.02); font-size: 12px;
-    }
-    .mini-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .icon-tile {
-      border: 1px solid var(--line); border-radius: 18px; padding: 14px;
-      background: rgba(255,255,255,.02); min-height: 110px;
-    }
-    .glyph {
-      width: 42px; height: 42px; border-radius: 14px;
-      background: linear-gradient(180deg, rgba(79,141,255,.16), rgba(79,141,255,.06));
-      border: 1px solid rgba(79,141,255,.24);
-      margin-bottom: 10px;
-      position: relative;
-    }
-    .glyph::before {
-      content: '';
-      position:absolute; inset: 12px 11px 12px 11px;
-      border: 2px solid currentColor; border-radius: 8px;
-      color: var(--accent-2);
-      opacity: .85;
-    }
-    .icon-tile strong { display:block; font-size: 14px; margin-bottom: 4px; }
-    .icon-tile span { color: var(--muted); font-size: 12px; line-height:1.45; }
-    .mobile-frame {
-      border-radius: 34px; padding: 12px; border:1px solid var(--line); background: rgba(6,10,16,.88);
+
+    .phone-frame {
+      width: 100%;
+      max-width: 480px;
+      margin-left: auto;
+      padding: 12px;
+      border-radius: 48px;
+      border: 1px solid rgba(147, 169, 198, 0.14);
+      background: linear-gradient(180deg, rgba(17, 26, 39, 0.96), rgba(10, 17, 26, 0.98));
       box-shadow: var(--shadow);
-      max-width: 380px;
     }
     .phone {
-      border-radius: 28px; overflow:hidden; background: linear-gradient(180deg, rgba(9,14,22,.98), rgba(7,12,18,.98));
-      border: 1px solid rgba(148,170,197,.14);
+      overflow: hidden;
+      min-height: 920px;
+      border-radius: 38px;
+      border: 1px solid rgba(147, 169, 198, 0.14);
+      background: linear-gradient(180deg, #08111a 0%, #060c14 100%);
     }
-    .phone-head, .phone-foot { padding: 16px; }
-    .phone-head { display:flex; justify-content:space-between; align-items:center; }
-    .phone-body { padding: 0 16px 16px; display:grid; gap: 12px; }
-    .phone-card { border:1px solid var(--line); border-radius: 20px; padding: 14px; background: rgba(255,255,255,.03); }
-    .phone-row {
-      display:grid; grid-template-columns: 40px minmax(0,1fr) auto; gap: 10px; align-items:center;
-      padding: 12px; border: 1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,.03);
+    .phone-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 20px 18px 10px;
     }
-    .dot {
-      width: 40px; height: 40px; border-radius: 14px; border:1px solid rgba(79,141,255,.24);
-      background: rgba(79,141,255,.12);
+    .phone-title {
+      margin: 0;
+      font-size: 29px;
+      line-height: 0.95;
+      letter-spacing: -0.06em;
     }
-    .phone-row h4 { margin:0; font-size: 14px; }
-    .phone-row p { font-size: 12px; line-height:1.45; margin-top: 3px; }
-    .bottomnav {
-      display:grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 14px 16px 18px;
-      border-top: 1px solid var(--line);
+    .phone-subtitle {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .ghost {
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      font-size: 20px;
+      line-height: 1;
+    }
+    .phone-body {
+      padding: 0 16px 16px;
+      display: grid;
+      gap: 12px;
+    }
+    .phone-card {
+      padding: 16px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .phone-card h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+      letter-spacing: -0.03em;
+    }
+    .phone-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .status-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .status.good {
+      color: #a2f2ca;
+      border-color: rgba(56, 217, 135, 0.24);
+      background: rgba(56, 217, 135, 0.08);
+    }
+    .status.warn {
+      color: #ffd786;
+      border-color: rgba(240, 180, 78, 0.24);
+      background: rgba(240, 180, 78, 0.08);
+    }
+    .status.danger {
+      color: #ffb0b8;
+      border-color: rgba(255, 100, 113, 0.24);
+      background: rgba(255, 100, 113, 0.08);
+    }
+    .device-row {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .device-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(76, 143, 255, 0.22);
+      background: linear-gradient(180deg, rgba(76, 143, 255, 0.16), rgba(76, 143, 255, 0.06));
+      color: var(--accent-2);
+      font-size: 18px;
+    }
+    .device-row h4 {
+      margin: 0;
+      font-size: 15px;
+    }
+    .device-row p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .bottom-nav {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      padding: 16px;
+      margin-top: auto;
+      border-top: 1px solid rgba(147, 169, 198, 0.12);
+      background: rgba(8, 13, 20, 0.96);
     }
     .tab {
-      padding: 10px 6px; border-radius: 16px; border:1px solid transparent; text-align:center;
-      font-size: 12px; color: var(--muted); background: rgba(255,255,255,.02);
+      display: grid;
+      gap: 5px;
+      place-items: center;
+      padding: 11px 8px;
+      border-radius: 18px;
+      border: 1px solid transparent;
+      color: var(--muted);
+      background: transparent;
+      font-size: 12px;
     }
     .tab.active {
       color: var(--text);
-      background: rgba(79,141,255,.12);
-      border-color: rgba(79,141,255,.22);
+      background: rgba(76, 143, 255, 0.12);
+      border-color: rgba(76, 143, 255, 0.22);
     }
-    .grid {
-      display:grid;
-      grid-template-columns: 1fr 1fr;
+
+    .content {
+      display: grid;
       gap: 18px;
-      padding: 18px;
-      margin-bottom: 18px;
     }
-    .footer {
-      padding: 18px 22px;
+    .panel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .card {
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+    }
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      letter-spacing: -0.03em;
+    }
+    .card p {
+      margin: 0;
       color: var(--muted);
       font-size: 13px;
-      text-align:center;
+      line-height: 1.55;
     }
-    @media (max-width: 1100px) {
-      .hero-grid, .grid { grid-template-columns: 1fr; }
-      .mobile-frame { max-width: 100%; }
+    .stack {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
     }
-    @media (max-width: 720px) {
-      .shell { width: min(100vw - 18px, 100%); }
-      .topbar { align-items:flex-start; flex-direction:column; }
-      .theme-grid, .mini-grid { grid-template-columns: 1fr; }
+    .list-row {
+      display: grid;
+      grid-template-columns: 14px minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: start;
+      padding: 12px 14px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      margin-top: 5px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(76, 143, 255, 0.12);
+    }
+    .dot.good { background: var(--green); box-shadow: 0 0 0 4px rgba(56, 217, 135, 0.10); }
+    .dot.warn { background: var(--yellow); box-shadow: 0 0 0 4px rgba(240, 180, 78, 0.10); }
+    .dot.danger { background: var(--red); box-shadow: 0 0 0 4px rgba(255, 100, 113, 0.10); }
+    .list-row strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+    .list-row p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .wide {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 16px;
+    }
+    .theme-tiles {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .tile {
+      min-height: 120px;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .tile strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+    .swatches {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .sw {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+    }
+    .sw.big {
+      width: 100%;
+      height: 78px;
+      border-radius: 18px;
+    }
+
+    .footer {
+      margin-top: 18px;
+      padding: 18px 20px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 1260px) {
+      .hero,
+      .wide,
+      .panel-grid {
+        grid-template-columns: 1fr;
+      }
+      .phone-frame {
+        margin: 0;
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 920px) {
+      .shell {
+        width: min(100vw - 18px, 100%);
+        padding-top: 12px;
+      }
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .chips {
+        justify-content: flex-start;
+      }
+      .hero {
+        padding: 18px;
+      }
+      .theme-tiles {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .card,
+      .phone-card,
+      .list-row {
+        border-radius: 18px;
+      }
+      .actions,
+      .chips {
+        width: 100%;
+      }
+      .btn,
+      .chip {
+        width: 100%;
+        justify-content: center;
+      }
+      .phone {
+        min-height: auto;
+      }
+      .bottom-nav {
+        gap: 8px;
+        padding: 14px;
+      }
     }
   </style>
 </head>
@@ -204,162 +527,262 @@
         <div class="mark">C</div>
         <div>
           <h1>Clippy by Venturis Lab</h1>
-          <p>iOS-first by default · Venturis Calm in dark mode · Frosted Suite in light mode</p>
+          <p>iOS-first by default · system-aware · Venturis Calm / Frosted Suite</p>
         </div>
       </div>
       <div class="chips">
-        <div class="chip"><strong>Connected</strong> goes red when offline</div>
+        <div class="chip"><strong>Connected</strong> stays positive</div>
+        <div class="chip danger"><strong>Disconnected</strong> turns red</div>
         <div class="chip"><strong>Manual IP</strong> when discovery fails</div>
-        <div class="chip"><strong>iOS</strong> stays honest about limits</div>
       </div>
     </section>
 
     <section class="hero">
-      <div class="hero-grid">
-        <div>
-          <h2>Large titles, Liquid Glass depth, and honest connection states.</h2>
-          <p class="lead">This site packages the Clippy direction into one place: the product UI, the reusable design system, icon packs, Figma kits, and iOS-friendly patterns that follow the device theme automatically.</p>
-          <div class="hero-actions">
-            <a class="btn primary" href="#">View the app</a>
-            <a class="btn" href="#">Open design kit</a>
-            <a class="btn" href="#">See iOS patterns</a>
-          </div>
+      <div>
+        <p class="eyebrow">Clippy iOS-first redesign</p>
+        <h2>Large titles, Liquid Glass depth, and a notebook for every clip.</h2>
+        <p class="lead">
+          The new Clippy direction follows the iOS kits directly: sheet-like confirmations, widget-style surfaces,
+          a clipboard notebook with local archive and export, and a settings hub that keeps plugins and styles in one place.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#">View the app</a>
+          <a class="btn" href="#">Open design kit</a>
+          <a class="btn" href="#">See iOS patterns</a>
         </div>
-        <div class="stack">
-          <div class="card">
-            <h3>System theme behavior</h3>
-            <p>Default to the OS appearance, keep manual overrides available, and preserve the same hierarchy in both modes.</p>
-            <div class="soft-row">
-              <div class="soft-pill">Dark · Venturis Calm</div>
-              <div class="soft-pill">Light · Frosted Suite</div>
-              <div class="soft-pill">Auto · follows system</div>
+        <div class="status-strip">
+          <span class="status good">Venturis Calm</span>
+          <span class="status">Frosted Suite</span>
+          <span class="status warn">Apple Pay-style confirmation sheets</span>
+          <span class="status">System theme follows OS</span>
+        </div>
+      </div>
+
+      <div class="phone-frame">
+        <div class="phone">
+          <div class="phone-head">
+            <div>
+              <p class="phone-title">Devices</p>
+              <p class="phone-subtitle">Native-feeling layout, direct status, no hidden paths.</p>
+            </div>
+            <div class="ghost">+</div>
+          </div>
+          <div class="phone-body">
+            <div class="phone-card">
+              <h3>Connected device</h3>
+              <p>Venturis-MacBook Air · local LAN · verified</p>
+              <div class="status-strip">
+                <span class="status good">Connected</span>
+                <span class="status">Encrypted</span>
+                <span class="status">Battery 87%</span>
+              </div>
+            </div>
+            <div class="phone-card">
+              <h3>Manual IP connect</h3>
+              <p>Visible when discovery is blocked or multicast is unavailable.</p>
+              <div class="status-strip">
+                <span class="status warn">192.168.1.42</span>
+                <span class="status">Port 1716</span>
+              </div>
+            </div>
+            <div class="phone-card">
+              <h3>Clipboard notebook</h3>
+              <p>Recent clips, local archive, PDF export, and file export.</p>
+              <div class="status-strip">
+                <span class="status">History</span>
+                <span class="status">Export PDF</span>
+                <span class="status">Export file</span>
+              </div>
             </div>
           </div>
-          <div class="card">
-            <h3>iPhone distribution options</h3>
-            <p>AltStore / SideStore sideloading, direct Xcode builds with a free Apple ID, and a web companion fallback while signing is in progress.</p>
-          </div>
-          <div class="card">
-            <h3>Reference stack</h3>
-            <p>Material 3 for structure, wireframes for discipline, iOS liquid glass for mobile depth, iOS views for screen-level layout logic, Apple Pay cues for confirmation flows, iOS component libraries for controls, native iOS wireframes for layout logic, widgets for information surfaces, website wireframes for layout, and Big Sur chrome for desktop framing.</p>
-            <div class="soft-row">
-              <div class="soft-pill">Material 3</div>
-              <div class="soft-pill">Mobile wireframes</div>
-              <div class="soft-pill">iOS 26 liquid glass</div>
-              <div class="soft-pill">iOS views</div>
-              <div class="soft-pill">Apple Pay cues</div>
-              <div class="soft-pill">iOS controls</div>
-              <div class="soft-pill">iOS widgets</div>
-              <div class="soft-pill">Native wireframes</div>
-              <div class="soft-pill">Website wireframes</div>
-              <div class="soft-pill">Big Sur chrome</div>
-              <div class="soft-pill">Scrollbar kit</div>
-            </div>
-          </div>
+          <nav class="bottom-nav">
+            <div class="tab active">Devices</div>
+            <div class="tab">Clipboard</div>
+            <div class="tab">Files</div>
+            <div class="tab">Settings</div>
+          </nav>
         </div>
       </div>
     </section>
 
-    <section class="grid">
-      <div class="stack">
-        <div class="card">
-          <h3>Venturis Calm</h3>
-          <p>Dark, premium, minimal. Soft glass surfaces and precise hierarchy.</p>
-          <div class="swatches">
-            <div class="sw big" style="background:#0f1621"></div>
-            <div class="sw" style="background:#1d2738"></div>
-            <div class="sw" style="background:#4c8fff"></div>
-            <div class="sw" style="background:#69d4ff"></div>
+    <section class="content">
+      <div class="panel-grid">
+        <article class="card">
+          <h3>Connection states</h3>
+          <p>Always show the honest state. If the link drops, connected becomes red immediately and says disconnected plainly.</p>
+          <div class="stack">
+            <div class="list-row">
+              <div class="dot good"></div>
+              <div>
+                <strong>Connected</strong>
+                <p>Local LAN and verified transport paths are front and center.</p>
+              </div>
+              <span class="chip">Good</span>
+            </div>
+            <div class="list-row">
+              <div class="dot warn"></div>
+              <div>
+                <strong>Manual IP</strong>
+                <p>Enter a host directly when discovery cannot find the device.</p>
+              </div>
+              <span class="chip">Fallback</span>
+            </div>
+            <div class="list-row">
+              <div class="dot danger"></div>
+              <div>
+                <strong>Disconnected</strong>
+                <p>Nothing is hidden; the app shows the failure and the next action.</p>
+              </div>
+              <span class="chip danger">Red</span>
+            </div>
           </div>
-          <div class="soft-row">
-            <div class="soft-pill">Connected</div>
-            <div class="soft-pill">Manual IP</div>
-            <div class="soft-pill">Relay fallback</div>
-          </div>
-        </div>
+        </article>
 
-        <div class="card">
-          <h3>Frosted Suite</h3>
-          <p>Lighter, friendlier, and more consumer-app focused with softer mobile surfaces.</p>
-          <div class="swatches">
-            <div class="sw big" style="background:#f4f7fc"></div>
-            <div class="sw" style="background:#ffffff"></div>
-            <div class="sw" style="background:#4c8fff"></div>
-            <div class="sw" style="background:#48d99b"></div>
+        <article class="card">
+          <h3>Clipboard notebook</h3>
+          <p>Every copied item can be viewed, stored locally, and exported later.</p>
+          <div class="stack">
+            <div class="list-row">
+              <div class="dot good"></div>
+              <div>
+                <strong>Quarterly planning draft</strong>
+                <p>12 seconds ago · from Venturis-MacBook Air</p>
+              </div>
+              <span class="chip">Note</span>
+            </div>
+            <div class="list-row">
+              <div class="dot warn"></div>
+              <div>
+                <strong>OTP masked</strong>
+                <p>3 minutes ago · sensitivity kept local</p>
+              </div>
+              <span class="chip">Secure</span>
+            </div>
+            <div class="list-row">
+              <div class="dot"></div>
+              <div>
+                <strong>Export controls</strong>
+                <p>PDF or file export stays visible instead of buried in settings.</p>
+              </div>
+              <span class="chip">Export</span>
+            </div>
           </div>
-          <div class="soft-row">
-            <div class="soft-pill">Devices</div>
-            <div class="soft-pill">Clipboard</div>
-            <div class="soft-pill">Files</div>
-            <div class="soft-pill">Settings</div>
+        </article>
+
+        <article class="card">
+          <h3>Settings hub</h3>
+          <p>Settings is the control room for plugins, preferences, styles, and policy.</p>
+          <div class="stack">
+            <div class="list-row">
+              <div class="dot good"></div>
+              <div>
+                <strong>Clipboard plugin</strong>
+                <p>History, archive, masking, and export.</p>
+              </div>
+              <span class="chip">On</span>
+            </div>
+            <div class="list-row">
+              <div class="dot"></div>
+              <div>
+                <strong>Files plugin</strong>
+                <p>Progress, retry, resume, and transfer verification.</p>
+              </div>
+              <span class="chip">On</span>
+            </div>
+            <div class="list-row">
+              <div class="dot warn"></div>
+              <div>
+                <strong>Remote input</strong>
+                <p>Permission-scoped, explicit, and easy to revoke.</p>
+              </div>
+              <span class="chip">Optional</span>
+            </div>
           </div>
-        </div>
+        </article>
       </div>
 
-      <div class="stack">
-        <div class="card">
-          <h3>Icon pack</h3>
-          <p>Reusable glyph language for clipboard, files, devices, ping, settings, and theme controls.</p>
-          <div class="mini-grid" style="margin-top:14px;">
-            <div class="icon-tile"><div class="glyph"></div><strong>Clipboard</strong><span>History, notes, and export.</span></div>
-            <div class="icon-tile"><div class="glyph"></div><strong>Files</strong><span>Send, receive, and retry.</span></div>
-            <div class="icon-tile"><div class="glyph"></div><strong>Devices</strong><span>Discovery and pairing.</span></div>
-            <div class="icon-tile"><div class="glyph"></div><strong>Ping</strong><span>Find the device fast.</span></div>
-            <div class="icon-tile"><div class="glyph"></div><strong>Settings</strong><span>Plugins and capabilities.</span></div>
-            <div class="icon-tile"><div class="glyph"></div><strong>Theme</strong><span>System / dark / light.</span></div>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3>Mobile behavior</h3>
-          <p>Stacked cards, sticky actions, readable status, and no hidden controls.</p>
-          <div style="display:flex; gap:14px; margin-top:14px; align-items:flex-start; flex-wrap:wrap;">
-            <div class="mobile-frame">
-              <div class="phone">
-                <div class="phone-head">
-                  <strong>Devices</strong>
-                  <div class="chip">+</div>
-                </div>
-                <div class="phone-body">
-                  <div class="phone-card">Manual IP connect · visible when discovery is blocked</div>
-                  <div class="phone-row">
-                    <div class="dot"></div>
-                    <div><h4>Venturis-MacBook</h4><p>Local LAN · verified</p></div>
-                    <div class="chip">Open</div>
-                  </div>
-                  <div class="phone-row">
-                    <div class="dot"></div>
-                    <div><h4>Pixel 7</h4><p>Relay fallback · encrypted</p></div>
-                    <div class="chip">Retry</div>
-                  </div>
-                </div>
-                <div class="bottomnav">
-                  <div class="tab active">Devices</div>
-                  <div class="tab">Clipboard</div>
-                  <div class="tab">Files</div>
-                  <div class="tab">Settings</div>
-                </div>
+      <div class="wide">
+        <article class="card">
+          <h3>Venturis Calm / Frosted Suite</h3>
+          <p>Two surfaces, one system. Dark mode stays premium and minimal; light mode stays soft and consumer-friendly.</p>
+          <div class="theme-tiles">
+            <div class="tile">
+              <strong>Venturis Calm</strong>
+              <p>Dark, glassy, high contrast, and focused on clear hierarchy.</p>
+              <div class="swatches">
+                <div class="sw big" style="background:#0f1621"></div>
+                <div class="sw" style="background:#1d2738"></div>
+                <div class="sw" style="background:#4c8fff"></div>
+                <div class="sw" style="background:#6bd1ff"></div>
               </div>
             </div>
-            <div style="flex:1; min-width: 240px;">
-              <div class="phone-card" style="margin-bottom: 12px;">Connected becomes red immediately if the link drops.</div>
-              <div class="phone-card" style="margin-bottom: 12px;">Clipboard keeps a local note trail and exports cleanly.</div>
-              <div class="phone-card">Settings holds plugins, styles, and style mobility in one place.</div>
+            <div class="tile">
+              <strong>Frosted Suite</strong>
+              <p>Lighter, friendlier, and more mobile-first with the same layout language.</p>
+              <div class="swatches">
+                <div class="sw big" style="background:#f4f7fc"></div>
+                <div class="sw" style="background:#ffffff"></div>
+                <div class="sw" style="background:#4c8fff"></div>
+                <div class="sw" style="background:#48d99b"></div>
+              </div>
             </div>
           </div>
+        </article>
+
+        <article class="card">
+          <h3>Distribution paths</h3>
+          <p>No paid Apple Developer account is assumed for the first pass. The UX stays honest about sideloading and companion options.</p>
+          <div class="stack">
+            <div class="list-row">
+              <div class="dot good"></div>
+              <div>
+                <strong>Local development</strong>
+                <p>Best for fast iteration on your own device.</p>
+              </div>
+              <span class="chip">Free</span>
+            </div>
+            <div class="list-row">
+              <div class="dot"></div>
+              <div>
+                <strong>AltStore / SideStore</strong>
+                <p>Sideload-friendly paths that do not depend on a paid account.</p>
+              </div>
+              <span class="chip">Ready</span>
+            </div>
+            <div class="list-row">
+              <div class="dot warn"></div>
+              <div>
+                <strong>App Store later</strong>
+                <p>Keep it visible as a future milestone, not as a current promise.</p>
+              </div>
+              <span class="chip">Later</span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="card">
+        <h3>Reference stack</h3>
+        <p>Material 3 for structure, iOS Liquid Glass for depth, iOS views for screen rhythm, Apple Pay cues for confirmations, and Big Sur chrome for desktop framing.</p>
+        <div class="status-strip" style="margin-top:14px;">
+          <span class="status">Material 3</span>
+          <span class="status">Mobile wireframes</span>
+          <span class="status">iOS liquid glass</span>
+          <span class="status">iOS views</span>
+          <span class="status">Apple Pay cues</span>
+          <span class="status">Native wireframes</span>
+          <span class="status">Scrollbar kit</span>
+          <span class="status">Big Sur chrome</span>
         </div>
       </div>
     </section>
 
     <section class="footer">
-      When you’re ready, I can turn this into a working production site and keep iterating on the app itself.
+      Clippy is reworked to feel like an iPhone-first product with a desktop companion, not a desktop app wearing mobile colors.
     </section>
   </main>
 </body>
 </html>`;
-    return new Response(html, {
-      headers: { "content-type": "text/html; charset=utf-8" },
-    });
+    return new Response(html, { headers: { "content-type": "text/html; charset=utf-8" } });
   },
 };
-
