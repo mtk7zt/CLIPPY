@@ -134,6 +134,24 @@ const supportModes = [
   },
 ];
 
+const iosInstallPaths = [
+  {
+    title: "AltStore or SideStore",
+    detail: "Sideload the IPA with a free Apple ID and refresh it on the normal signing cadence.",
+    tone: "good",
+  },
+  {
+    title: "Direct Xcode install",
+    detail: "Use a free Apple ID for local development builds on your own test device.",
+    tone: "info",
+  },
+  {
+    title: "Web companion fallback",
+    detail: "Keep a browser-based companion available while the native iOS build is being signed.",
+    tone: "warn",
+  },
+];
+
 const desktopPages = {
   devices: {
     title: "Devices",
@@ -149,7 +167,7 @@ const desktopPages = {
   },
   settings: {
     title: "Settings",
-    subtitle: "Plugins, preferences, motion, icons, and style mobility live here so the app stays powerful without becoming invasive.",
+    subtitle: "Plugins, layout preferences, motion, icons, and style mobility live here so the app stays powerful without becoming invasive.",
   },
 };
 
@@ -363,6 +381,69 @@ function desktopSettingsPanel() {
                 <p>Explicit permission, local audit trail, revoke anytime.</p>
               </div>
               <span class="muted">Optional</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-grid" style="margin-top:14px;">
+        <div class="card soft">
+          <div class="section-title">
+            <div>
+              <h4>iPhone install paths</h4>
+              <small>No Apple Developer account is required for the first pass.</small>
+            </div>
+            ${chip("No paid account", "warn")}
+          </div>
+          <div class="list">
+            ${iosInstallPaths
+              .map(
+                (item) => `
+                  <div class="log-row">
+                    <div class="dot ${item.tone}"></div>
+                    <div>
+                      <strong>${item.title}</strong>
+                      <p>${item.detail}</p>
+                    </div>
+                    <span class="muted">${item.tone === "good" ? "Best" : item.tone === "info" ? "Dev" : "Fallback"}</span>
+                  </div>`,
+              )
+              .join("")}
+          </div>
+        </div>
+
+        <div class="card soft">
+          <div class="section-title">
+            <div>
+              <h4>Distribution notes</h4>
+              <small>We stay honest about what Apple allows without paid signing.</small>
+            </div>
+            ${chip("Practical", "info")}
+          </div>
+          <div class="list">
+            <div class="log-row">
+              <div class="dot good"></div>
+              <div>
+                <strong>Local development</strong>
+                <p>Best for fast iteration when you are testing on your own device.</p>
+              </div>
+              <span class="muted">Free</span>
+            </div>
+            <div class="log-row">
+              <div class="dot info"></div>
+              <div>
+                <strong>Alternative sideloading</strong>
+                <p>AltStore and SideStore keep a native path open without requiring a paid Apple program.</p>
+              </div>
+              <span class="muted">Available</span>
+            </div>
+            <div class="log-row">
+              <div class="dot warn"></div>
+              <div>
+                <strong>App Store / TestFlight later</strong>
+                <p>These become options only once Apple’s developer program and review path are available.</p>
+              </div>
+              <span class="muted">Later</span>
             </div>
           </div>
         </div>
@@ -1042,6 +1123,32 @@ function settingsTab() {
         </div>
       </div>
     </div>
+
+    <div class="phone-card">
+      <div class="section-title" style="margin-bottom:10px;">
+        <div>
+          <h4 style="margin-bottom:4px;">Install on iPhone</h4>
+          <small>Choose a path that works without a paid Apple Developer account.</small>
+        </div>
+        ${chip("Sideload-ready", "warn")}
+      </div>
+      <div class="phone-list">
+        ${iosInstallPaths
+          .map(
+            (item) => `
+              <div class="phone-row">
+                <div class="device-icon">${icon(item.tone === "good" ? "shield" : item.tone === "info" ? "device" : "wifi")}</div>
+                <div>
+                  <h5>${item.title}</h5>
+                  <p>${item.detail}</p>
+                </div>
+                ${chip(item.tone === "good" ? "Best" : item.tone === "info" ? "Dev" : "Fallback", item.tone)}
+              </div>`,
+          )
+          .join("")}
+      </div>
+      <p class="subtle" style="margin-top:12px;">We can keep the App Store path as a later milestone, but the prototype now points people to options they can actually use today.</p>
+    </div>
   `;
 }
 
@@ -1087,7 +1194,7 @@ function root() {
           </div>
         </div>
         <div class="global-status">
-          <span class="pill ${state.connectionOnline ? "" : "danger"}">${icon("wifi")} <strong>${state.connectionOnline ? "Connected" : "Disconnected"}</strong> ${state.connectionOnline ? "via LAN first" : "retrying and showing fallbacks"}</span>
+          <span class="pill ${state.connectionOnline ? "" : "danger"}">${icon("wifi")} <strong>${connectionLabel()}</strong> ${state.connectionOnline ? "via LAN first" : "shown in red until reconnected"}</span>
           <span class="pill">${icon("shield")} <strong>Encrypted</strong> transport</span>
           <span class="pill">${icon("warning")} iOS stays honest about limits</span>
         </div>
