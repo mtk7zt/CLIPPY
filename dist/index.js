@@ -10,32 +10,36 @@ export default {
   <style>
     :root {
       color-scheme: dark light;
-      --bg: #07111d;
-      --bg-2: #0c1724;
-      --panel: rgba(13, 21, 33, 0.82);
-      --surface: rgba(18, 28, 42, 0.68);
-      --line: rgba(149, 173, 204, 0.15);
-      --text: #f5f8fc;
-      --muted: #96a7bc;
-      --accent: #67a1ff;
-      --accent-2: #91d8ff;
+      --bg: #f4f7fc;
+      --bg-2: #e9eff8;
+      --panel: rgba(255, 255, 255, 0.82);
+      --surface: rgba(255, 255, 255, 0.92);
+      --surface-dark: rgba(17, 24, 39, 0.96);
+      --line: rgba(95, 118, 144, 0.14);
+      --line-dark: rgba(61, 74, 97, 0.95);
+      --text: #111827;
+      --muted: #66758b;
+      --muted-dark: #adb8c9;
+      --accent: #478fff;
+      --accent-2: #6bd1ff;
       --success: #3ee58f;
       --warning: #f4bb4f;
       --danger: #ff6b78;
-      --shadow: 0 32px 90px rgba(0, 0, 0, 0.32);
+      --shadow: 0 26px 70px rgba(34, 51, 76, 0.12);
+      --shadow-dark: 0 30px 80px rgba(0, 0, 0, 0.35);
       --radius-xl: 34px;
       --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-    @media (prefers-color-scheme: light) {
+    @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #f4f7fc;
-        --bg-2: #e9eff8;
-        --panel: rgba(255, 255, 255, 0.78);
-        --surface: rgba(255, 255, 255, 0.92);
-        --line: rgba(95, 118, 144, 0.14);
-        --text: #111827;
-        --muted: #64748b;
-        --shadow: 0 26px 70px rgba(34, 51, 76, 0.12);
+        --bg: #07111d;
+        --bg-2: #0c1622;
+        --panel: rgba(13, 21, 33, 0.82);
+        --surface: rgba(18, 28, 42, 0.68);
+        --line: rgba(149, 173, 204, 0.15);
+        --text: #f5f8fc;
+        --muted: #96a7bc;
+        --shadow: var(--shadow-dark);
       }
     }
     * { box-sizing: border-box; }
@@ -43,8 +47,8 @@ export default {
       margin: 0;
       min-height: 100%;
       background:
-        radial-gradient(circle at top left, rgba(103, 161, 255, 0.16), transparent 28%),
-        radial-gradient(circle at 90% 10%, rgba(145, 216, 255, 0.12), transparent 20%),
+        radial-gradient(circle at top left, rgba(103, 161, 255, 0.14), transparent 28%),
+        radial-gradient(circle at 88% 12%, rgba(107, 209, 255, 0.1), transparent 18%),
         linear-gradient(180deg, var(--bg), var(--bg-2));
       color: var(--text);
       font-family: var(--font);
@@ -54,87 +58,71 @@ export default {
     body { min-height: 100vh; }
     svg { display: block; width: 1em; height: 1em; }
     .canvas { position: relative; min-height: 100vh; overflow: hidden; }
-    .ambient { position: absolute; inset: auto; filter: blur(64px); pointer-events: none; opacity: 0.75; }
-    .ambient-a { width: 460px; height: 460px; left: -120px; top: 10px; background: radial-gradient(circle, rgba(103, 161, 255, 0.28), transparent 70%); }
-    .ambient-b { width: 540px; height: 540px; right: -140px; bottom: -150px; background: radial-gradient(circle, rgba(62, 229, 143, 0.12), transparent 72%); }
-    .shell { position: relative; width: min(1500px, calc(100vw - 24px)); margin: 0 auto; padding: 18px 0 26px; }
-    .topbar, .panel, .hero-card, .section-card, .note-field, .dock { border: 1px solid var(--line); background: var(--panel); backdrop-filter: blur(22px); box-shadow: var(--shadow); }
-    .topbar { display:flex; justify-content:space-between; align-items:center; gap:14px; padding:16px 18px; border-radius:var(--radius-xl); }
+    .ambient { position: absolute; inset: auto; pointer-events: none; filter: blur(64px); opacity: 0.8; }
+    .ambient-a { width: 420px; height: 420px; left: -100px; top: 10px; background: radial-gradient(circle, rgba(103, 161, 255, 0.22), transparent 72%); }
+    .ambient-b { width: 520px; height: 520px; right: -140px; bottom: -140px; background: radial-gradient(circle, rgba(62, 229, 143, 0.12), transparent 72%); }
+    .shell { position: relative; width: min(1120px, calc(100vw - 20px)); margin: 0 auto; padding: 18px 0 26px; }
+    .topbar, .section-card, .phone-card, .manual-card, .device-item, .bottom-tabbar, .note-field, .setting-row {
+      border: 1px solid var(--line); background: var(--panel); backdrop-filter: blur(22px); box-shadow: var(--shadow);
+    }
+    .topbar { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:16px 18px; border-radius:var(--radius-xl); }
     .brand { display:flex; align-items:center; gap:14px; }
-    .brand-mark { width:42px; height:42px; border-radius:15px; display:grid; place-items:center; border:1px solid rgba(103,161,255,.3); background:linear-gradient(180deg, rgba(103,161,255,.2), rgba(103,161,255,.08)); color:var(--accent-2); }
+    .brand-mark { width:42px; height:42px; border-radius:15px; display:grid; place-items:center; border:1px solid rgba(71,143,255,.28); background:linear-gradient(180deg, rgba(71,143,255,.2), rgba(71,143,255,.08)); color:var(--accent-2); }
     .brand p, .brand strong { margin:0; line-height:1.1; }
-    .brand p { color:var(--muted); font-size:12px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; }
+    .brand p { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:4px; }
     .brand strong { font-size:22px; font-weight:700; letter-spacing:-.04em; }
-    .topbar-actions, .status-row, .sheet-actions, .clip-list { display:flex; gap:10px; flex-wrap:wrap; }
-    .theme-switch, .mini-pill, .status-pill, .ghost, .primary, .sheet-button, .dock-item { display:inline-flex; align-items:center; justify-content:center; gap:8px; }
+    .topbar-actions, .status-row, .sheet-actions, .clip-list, .settings-list { display:flex; gap:10px; flex-wrap:wrap; }
+    .theme-switch, .status-pill, .mini-pill, .pill-button, .connect-button, .ghost, .primary, .tab-item { display:inline-flex; align-items:center; justify-content:center; gap:8px; }
     .theme-switch, .status-pill, .mini-pill { min-height:38px; padding:0 14px; border-radius:999px; border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--muted); }
-    .theme-switch.active, .mini-pill.success, .status-pill.success { background:rgba(62,229,143,.12); color:var(--success); border-color:rgba(62,229,143,.22); }
-    .mini-pill.warning, .status-pill.warning { background:rgba(244,187,79,.12); color:var(--warning); border-color:rgba(244,187,79,.22); }
-    .mini-pill.danger, .status-pill.danger { background:rgba(255,107,120,.12); color:var(--danger); border-color:rgba(255,107,120,.24); }
-    .mini-pill.info { background:rgba(103,161,255,.12); color:var(--accent); border-color:rgba(103,161,255,.24); }
-    .status-row { padding:14px 2px 20px; }
-    .layout { display:grid; grid-template-columns:minmax(330px,.88fr) minmax(500px,1.12fr); gap:18px; align-items:start; }
-    .panel { border-radius:var(--radius-xl); overflow:hidden; }
-    .sidebar, .detail { padding:20px; }
-    .section-card { border-radius:28px; padding:18px; background:var(--surface); }
-    .hero-card { border-radius:28px; padding:24px; background:var(--surface); margin-bottom:14px; }
-    .hero-card.danger { border-color:rgba(255,107,120,.24); }
-    .hero-copy h1, .section-head h2 { margin:0; line-height:1.04; letter-spacing:-.05em; }
-    .hero-copy h1 { font-size:clamp(34px, 4.1vw, 56px); }
-    .section-head h2 { font-size:24px; }
-    .hero-copy p, .section-copy, .device-copy span, .setting-row small { color:var(--muted); }
-    .hero-copy p, .section-copy { margin:10px 0 0; line-height:1.7; font-size:15px; max-width:58ch; }
-    .hero-badge { display:inline-flex; align-items:center; gap:8px; padding:12px 14px; border-radius:999px; border:1px solid var(--line); background:rgba(255,255,255,.04); color:var(--muted); white-space:nowrap; }
-    .hero-badge svg { color:var(--accent-2); }
-    .section-head { display:flex; justify-content:space-between; align-items:start; gap:14px; }
+    .theme-switch.active, .mini-pill.success, .status-pill.success { border-color:rgba(62,229,143,.24); background:rgba(62,229,143,.12); color:var(--success); }
+    .mini-pill.warning, .status-pill.warning { border-color:rgba(244,187,79,.24); background:rgba(244,187,79,.12); color:var(--warning); }
+    .mini-pill.danger, .status-pill.danger { border-color:rgba(255,107,120,.24); background:rgba(255,107,120,.12); color:var(--danger); }
+    .mini-pill { font-size:13px; }
+    .status-row { padding:14px 2px 18px; }
+    .stage { display:flex; justify-content:center; }
+    .section-card { width:100%; border-radius:var(--radius-xl); padding:20px; background:var(--surface); }
+    .section-head { display:flex; align-items:start; justify-content:space-between; gap:14px; }
     .section-kicker { margin:0 0 8px; color:var(--muted); font-size:11px; letter-spacing:.16em; text-transform:uppercase; }
-    .search-row { display:flex; align-items:center; gap:10px; margin-top:16px; padding:0 14px; min-height:50px; border-radius:18px; border:1px solid var(--line); background:rgba(255,255,255,.04); }
-    .search-row svg { color:var(--muted); }
-    .search { width:100%; background:transparent; color:var(--text); border:0; outline:0; }
-    .search::placeholder { color:var(--muted); }
-    .device-list { display:grid; gap:10px; margin-top:16px; }
-    .device-row { display:flex; align-items:center; justify-content:space-between; gap:12px; width:100%; padding:16px; border-radius:22px; border:1px solid var(--line); background:rgba(255,255,255,.03); color:inherit; text-align:left; }
-    .device-row.active { background:linear-gradient(180deg, rgba(103,161,255,.12), rgba(103,161,255,.06)); }
-    .device-icon { width:42px; height:42px; border-radius:14px; display:grid; place-items:center; border:1px solid var(--line); background:rgba(255,255,255,.05); color:var(--muted); flex:0 0 auto; }
-    .device-icon.success { color:var(--success); }
-    .device-icon.info { color:var(--accent); }
-    .device-icon.warning { color:var(--warning); }
-    .device-copy { display:grid; gap:4px; flex:1 1 auto; min-width:0; }
-    .device-copy strong { font-size:16px; font-weight:600; }
-    .device-copy span { font-size:13px; }
-    .manual-grid, .split-actions, .meta-grid, .settings-list { display:grid; gap:12px; }
-    .manual-grid { grid-template-columns:minmax(0,1fr) 110px auto; margin-top:18px; }
-    .field { min-height:48px; padding:0 14px; border-radius:16px; border:1px solid var(--line); background:rgba(255,255,255,.04); color:var(--text); }
-    .field.short { text-align:center; }
-    .primary, .ghost, .sheet-button { min-height:48px; padding:0 16px; border-radius:16px; border:1px solid var(--line); color:var(--text); background:rgba(255,255,255,.04); }
-    .primary { border-color:rgba(103,161,255,.34); background:linear-gradient(180deg, rgba(103,161,255,.18), rgba(103,161,255,.08)); }
-    .section-card.soft { margin-top:14px; }
-    .split-actions { grid-template-columns:repeat(3, minmax(0, 1fr)); margin-top:16px; }
-    .meta-grid { grid-template-columns:repeat(3, minmax(0, 1fr)); margin-top:16px; }
-    .meta-grid div { padding:14px; border-radius:18px; border:1px solid var(--line); background:rgba(255,255,255,.03); }
-    .meta-grid span, .meta-grid strong { display:block; }
-    .meta-grid span { color:var(--muted); font-size:12px; margin-bottom:4px; }
-    .note-field { width:100%; min-height:120px; margin-top:16px; padding:16px; border-radius:22px; border:1px solid var(--line); background:rgba(255,255,255,.04); color:var(--text); resize:vertical; }
+    .section-head h2, .phone-top h1 { margin:0; line-height:1.05; letter-spacing:-.05em; }
+    .section-head h2 { font-size:24px; }
+    .section-copy, .subtitle, .device-item span, .setting-row small { color:var(--muted); }
+    .section-copy, .subtitle { margin:10px 0 0; line-height:1.65; max-width:60ch; }
+    .phone-card { width:min(334px, 100%); margin:18px auto 0; padding:18px 18px 14px; border-radius:30px; background:var(--surface-dark); border-color:var(--line-dark); box-shadow:var(--shadow-dark); }
+    .phone-top { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .phone-top h1 { font-size:18px; color:#f5f7fc; }
+    .pill-button { width:72px; height:34px; border-radius:999px; background:var(--accent); color:#fff; }
+    .subtitle { margin-bottom:12px; color:#b5c0d0; font-size:12px; max-width:280px; }
+    .manual-card { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 14px; border-radius:18px; background:#1a1f2e; border-color:#3d4a61; }
+    .manual-card strong { display:block; font-size:14px; color:#f5f7fc; }
+    .manual-card span { display:block; color:var(--muted-dark); font-size:12px; margin-top:4px; line-height:1.35; max-width:210px; }
+    .connect-button { min-width:72px; min-height:34px; padding:0 14px; border-radius:999px; background:var(--accent); color:#fff; }
+    .device-list { display:grid; gap:10px; margin-top:10px; }
+    .device-item { display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:30px; padding:8px 12px; border-radius:14px; background:#243045; border-color:#3d4a61; color:#f5f7fc; text-align:left; }
+    .device-item.warning, .device-item.neutral { background:#171c29; }
+    .device-item strong { font-size:12px; font-weight:600; }
+    .device-item span { font-size:12px; color:#adb8c9; }
+    .bottom-tabbar { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:6px; margin-top:12px; padding:6px; border-radius:20px; background:#171c29; border-color:#3d4a61; }
+    .tab-item { min-height:52px; flex-direction:column; gap:3px; border-radius:16px; background:transparent; color:#b9c4d3; }
+    .tab-item.active { background:rgba(71,143,255,.18); color:#6bd1ff; }
+    .tab-item svg { width:18px; height:18px; }
+    .note-field { width:100%; min-height:120px; margin-top:14px; padding:16px; border-radius:22px; background:rgba(255,255,255,.04); color:var(--text); resize:vertical; }
+    .ghost, .primary { min-height:40px; padding:0 14px; border-radius:14px; border:1px solid var(--line); color:var(--text); background:rgba(255,255,255,.04); }
+    .primary { border-color:rgba(71,143,255,.34); background:linear-gradient(180deg, rgba(71,143,255,.2), rgba(71,143,255,.08)); }
     .clip-list { display:grid; gap:10px; margin-top:14px; }
-    .clip-row { padding:16px; border-radius:20px; border:1px solid var(--line); background:rgba(255,255,255,.03); display:grid; gap:6px; }
-    .clip-row strong { font-size:15px; line-height:1.45; }
-    .clip-row span { color:var(--muted); font-size:13px; }
-    .settings-list { margin-top:16px; }
-    .setting-row { padding:16px; border-radius:20px; border:1px solid var(--line); background:rgba(255,255,255,.03); display:grid; gap:4px; }
+    .clip-item, .setting-row { padding:14px; border-radius:20px; border:1px solid var(--line); background:rgba(255,255,255,.03); }
+    .clip-item { display:grid; gap:4px; }
+    .clip-item strong { font-size:15px; line-height:1.4; }
+    .clip-item span { color:var(--muted); font-size:13px; }
+    .settings-list { display:grid; gap:10px; margin-top:14px; }
+    .setting-row { display:grid; gap:4px; }
     .setting-row span { display:inline-flex; align-items:center; gap:8px; font-weight:600; }
-    .dock { display:none; }
-    @media (max-width:1100px) { .layout { grid-template-columns:1fr; } }
-    @media (max-width:860px) {
-      .shell { width:min(100vw - 14px, 100%); padding-top:10px; }
+    @media (min-width:900px) { .stage { padding-top:6px; } .section-card { width:min(880px, 100%); } }
+    @media (max-width:700px) {
+      .shell { width:min(100vw - 12px, 100%); padding-top:10px; }
       .topbar { flex-direction:column; align-items:start; padding:14px; }
-      .topbar-actions { width:100%; }
       .topbar-actions > * { flex:1 1 0; }
-      .sidebar, .detail { padding:14px; }
-      .manual-grid, .split-actions, .meta-grid { grid-template-columns:1fr; }
-      .dock { position:sticky; bottom:12px; z-index:10; display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:8px; margin-top:14px; padding:8px; border-radius:28px; border:1px solid var(--line); background:rgba(16,22,34,.82); backdrop-filter:blur(24px); box-shadow:var(--shadow); }
-      :root[data-theme="light"] .dock { background:rgba(255,255,255,.8); }
-      .dock-item { min-height:62px; display:grid; place-items:center; gap:4px; border-radius:18px; border:1px solid transparent; color:var(--muted); background:transparent; }
-      .dock-item.active { background:linear-gradient(180deg, rgba(103,161,255,.18), rgba(103,161,255,.08)); color:var(--text); }
+      .section-card { padding:16px; }
+      .status-row { padding-bottom:14px; }
     }
   </style>
 </head>
@@ -145,7 +133,9 @@ export default {
     <div class="shell">
       <header class="topbar">
         <div class="brand">
-          <div class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 7.5h15v8h-15zM8 18h8M10 4.5h4"/></svg></div>
+          <div class="brand-mark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 7.5h15v8h-15zM8 18h8M10 4.5h4"/></svg>
+          </div>
           <div><p>Venturis Lab</p><strong>Clippy</strong></div>
         </div>
         <div class="topbar-actions">
@@ -157,135 +147,55 @@ export default {
 
       <div class="status-row">
         <span class="status-pill success">Connected</span>
-        <span class="status-pill danger">Disconnected</span>
-        <span class="status-pill">Discovery on</span>
-        <span class="status-pill">Relay ready</span>
-        <span class="status-pill">Venturis simplicity</span>
+        <span class="status-pill">Local LAN</span>
+        <span class="status-pill">System</span>
       </div>
 
-      <main class="layout">
-        <aside class="panel sidebar">
-          <section class="section-card">
-            <div class="section-head">
-              <div>
-                <p class="section-kicker">Devices</p>
-                <h2>Small list. Clear states. Calm spacing.</h2>
-              </div>
-              <span class="mini-pill success">Connected</span>
+      <main class="stage">
+        <section class="section-card">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Devices</p>
+              <h2>Single-column device view.</h2>
             </div>
-            <div class="search-row">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="5.5"/><path d="M15.5 15.5 19 19"/></svg>
-              <input class="search" placeholder="Search a device or setting" />
+            <span class="mini-pill success">Connected</span>
+          </div>
+          <p class="section-copy">Keep the layout simple enough that the user always knows where they are.</p>
+
+          <section class="phone-card">
+            <div class="phone-top">
+              <h1>Devices</h1>
+              <button class="pill-button" aria-label="Add device">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+            </div>
+            <p class="subtitle">The app should collapse cleanly into a single-column device view with sticky actions and no hidden controls.</p>
+            <div class="manual-card">
+              <div><strong>Add device manually</strong><span>Enter the IP shown on the other device.</span></div>
+              <button class="connect-button">Connect</button>
             </div>
             <div class="device-list">
-              <button class="device-row active">
-                <div class="device-icon success"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 11.5 9.5 15.5 18.5 6.5"/></svg></div>
-                <div class="device-copy"><strong>MacBook Air</strong><span>Local LAN · Verified</span></div>
-                <span class="mini-pill success">Connected</span>
+              <button class="device-item"><strong>Venturis-MacBook</strong><span>Local LAN</span></button>
+              <button class="device-item warning"><strong>Pixel 7</strong><span>Relay fallback</span></button>
+              <button class="device-item neutral"><strong>Clipboard inbox</strong><span>Recent clips</span></button>
+            </div>
+            <div class="bottom-tabbar">
+              <button class="tab-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 7.5h15v8h-15zM8 18h8M10 4.5h4"/></svg>
+                <span>Devices</span>
               </button>
-              <button class="device-row">
-                <div class="device-icon info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14 14 10"/><path d="M8 6.8H6.5a3.5 3.5 0 0 0 0 7H8"/><path d="M16 17.2h1.5a3.5 3.5 0 0 0 0-7H16"/></svg></div>
-                <div class="device-copy"><strong>iPhone 15 Pro</strong><span>192.168.1.42</span></div>
-                <span class="mini-pill info">Manual IP</span>
+              <button class="tab-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5.5h8M9 4h6a1 1 0 0 1 1 1v1H8V5a1 1 0 0 1 1-1Zm-3 4h12v11H6z"/><path d="M9 9.5h6M9 12.5h6M9 15.5h4"/></svg>
+                <span>Clipboard</span>
               </button>
-              <button class="device-row">
-                <div class="device-icon warning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.8 20 18H4z"/><path d="M12 9v4.5M12 15.8h.01"/></svg></div>
-                <div class="device-copy"><strong>iPad mini</strong><span>Fallback ready</span></div>
-                <span class="mini-pill warning">Relay</span>
+              <button class="tab-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5.5h6a1 1 0 0 1 1 1v1h-8v-1a1 1 0 0 1 1-1Z"/><path d="M8 8h8v10H8z"/><path d="M10 12h4"/></svg>
+                <span>Settings</span>
               </button>
-            </div>
-          </section>
-
-          <section class="section-card soft">
-            <div class="section-head">
-              <div>
-                <p class="section-kicker">Manual IP</p>
-                <h2>Use a host when discovery fails.</h2>
-              </div>
-              <span class="mini-pill info">Fallback</span>
-            </div>
-            <div class="manual-grid">
-              <input class="field" value="192.168.1.42" />
-              <input class="field short" value="1716" />
-              <button class="primary">Add host</button>
-            </div>
-          </section>
-        </aside>
-
-        <section class="panel detail">
-          <section class="hero-card">
-            <div class="hero-copy">
-              <p class="section-kicker">Clippy by Venturis Lab</p>
-              <h1>Simple, calm, and device-first.</h1>
-              <p>A quieter product direction with generous spacing, clear states, and iOS-style structure for both desktop and phone.</p>
-            </div>
-            <div class="hero-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 9.5a11 11 0 0 1 15 0"/><path d="M7.5 12.5a7 7 0 0 1 9 0"/><path d="M10.5 15.5a3 3 0 0 1 3 0"/><circle cx="12" cy="18" r="1"/></svg> <span>Connected</span></div>
-          </section>
-
-          <section class="section-card">
-            <div class="section-head">
-              <div>
-                <p class="section-kicker">Connection</p>
-                <h2>Connected, without clutter.</h2>
-              </div>
-              <span class="mini-pill success">Live</span>
-            </div>
-            <p class="section-copy">One visible connection, one manual fallback, and no unnecessary surfaces fighting for attention.</p>
-            <div class="split-actions">
-              <button class="sheet-button">Ping</button>
-              <button class="sheet-button">Push clipboard</button>
-              <button class="sheet-button">Send file</button>
-            </div>
-            <div class="meta-grid">
-              <div><span>Device</span><strong>MacBook Air</strong></div>
-              <div><span>Manual host</span><strong>192.168.1.42</strong></div>
-              <div><span>Transport</span><strong>LAN first</strong></div>
-            </div>
-          </section>
-
-          <section class="section-card soft">
-            <div class="section-head">
-              <div>
-                <p class="section-kicker">Clipboard</p>
-                <h2>A quiet notebook for your clips.</h2>
-              </div>
-              <span class="mini-pill success">Stored locally</span>
-            </div>
-            <textarea class="note-field">Keep this note visible across devices.</textarea>
-            <div class="sheet-actions" style="margin-top:12px;">
-              <button class="ghost">Local archive on</button>
-              <button class="ghost">Export file</button>
-              <button class="primary">Export PDF</button>
-            </div>
-            <div class="clip-list">
-              <article class="clip-row"><strong>Venturis Lab launch notes</strong><span>Project note</span></article>
-              <article class="clip-row"><strong>https://clippy.venturis.app/join/MTK7</strong><span>Link</span></article>
-              <article class="clip-row"><strong>OTP ••••••</strong><span>Sensitive</span></article>
-            </div>
-          </section>
-
-          <section class="section-card soft">
-            <div class="section-head">
-              <div>
-                <p class="section-kicker">Settings</p>
-                <h2>Plugins, preferences, and permissions.</h2>
-              </div>
-              <span class="mini-pill">Hub</span>
-            </div>
-            <div class="settings-list">
-              <div class="setting-row"><span>Plugins</span><small>Clipboard, ping, files, remote input</small></div>
-              <div class="setting-row"><span>Permissions</span><small>Local network, clipboard, foreground actions</small></div>
-              <div class="setting-row"><span>Distribution</span><small>AltStore, SideStore, Xcode, web companion</small></div>
             </div>
           </section>
         </section>
       </main>
-
-      <nav class="dock" aria-label="Main navigation">
-        <div class="dock-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 7.5h15v8h-15zM8 18h8M10 4.5h4"/></svg><span>Devices</span></div>
-        <div class="dock-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5.5h8M9 4h6a1 1 0 0 1 1 1v1H8V5a1 1 0 0 1 1-1Zm-3 4h12v11H6z"/><path d="M9 9.5h6M9 12.5h6M9 15.5h4"/></svg><span>Clipboard</span></div>
-        <div class="dock-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5.5h6a1 1 0 0 1 1 1v1h-8v-1a1 1 0 0 1 1-1Z"/><path d="M8 8h8v10H8z"/><path d="M10 12h4"/></svg><span>Settings</span></div>
-      </nav>
     </div>
   </div>
 </body>
