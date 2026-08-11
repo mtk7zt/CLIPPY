@@ -9,194 +9,208 @@ export default {
   <title>Clippy by Venturis Lab</title>
   <style>
     :root {
-      color-scheme: dark light;
-      --bg: #f4f7fc;
-      --bg-2: #e9eff8;
-      --panel: rgba(255, 255, 255, 0.82);
-      --surface: rgba(255, 255, 255, 0.92);
-      --surface-dark: rgba(17, 24, 39, 0.96);
-      --line: rgba(95, 118, 144, 0.14);
-      --line-dark: rgba(61, 74, 97, 0.95);
-      --text: #111827;
-      --muted: #66758b;
-      --muted-dark: #adb8c9;
+      color-scheme: light dark;
+      --page-bg: #ffffff;
+      --page-text: #171c29;
+      --page-muted: #697385;
+      --chip-border: #d6dbe8;
+      --chip-bg: #ffffff;
       --accent: #478fff;
       --accent-2: #6bd1ff;
-      --success: #3ee58f;
-      --warning: #f4bb4f;
-      --danger: #ff6b78;
-      --shadow: 0 26px 70px rgba(34, 51, 76, 0.12);
-      --shadow-dark: 0 30px 80px rgba(0, 0, 0, 0.35);
-      --radius-xl: 34px;
+      --shadow: 0 20px 50px rgba(14, 20, 35, 0.08);
+      --phone-bg: #0f141f;
+      --phone-border: #333b4d;
+      --phone-surface: #1a1f2e;
+      --phone-row-a: #243045;
+      --phone-row-b: #171c29;
+      --phone-text: #f5f7fc;
+      --phone-subtext: #adb8c9;
+      --phone-line: #3d4a61;
+      --radius-xl: 30px;
       --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #07111d;
-        --bg-2: #0c1622;
-        --panel: rgba(13, 21, 33, 0.82);
-        --surface: rgba(18, 28, 42, 0.68);
-        --line: rgba(149, 173, 204, 0.15);
-        --text: #f5f8fc;
-        --muted: #96a7bc;
-        --shadow: var(--shadow-dark);
-      }
+    :root[data-theme="dark"] {
+      --page-bg: #0b101a;
+      --page-text: #f5f7fc;
+      --page-muted: #adb8c9;
+      --chip-border: #3d4a61;
+      --chip-bg: #131827;
     }
     * { box-sizing: border-box; }
     html, body {
       margin: 0;
       min-height: 100%;
-      background:
-        radial-gradient(circle at top left, rgba(103, 161, 255, 0.14), transparent 28%),
-        radial-gradient(circle at 88% 12%, rgba(107, 209, 255, 0.1), transparent 18%),
-        linear-gradient(180deg, var(--bg), var(--bg-2));
-      color: var(--text);
+      background: var(--page-bg);
+      color: var(--page-text);
       font-family: var(--font);
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
     body { min-height: 100vh; }
+    button, input, textarea { font: inherit; }
+    button { border: 0; cursor: pointer; }
     svg { display: block; width: 1em; height: 1em; }
-    .canvas { position: relative; min-height: 100vh; overflow: hidden; }
-    .ambient { position: absolute; inset: auto; pointer-events: none; filter: blur(64px); opacity: 0.8; }
-    .ambient-a { width: 420px; height: 420px; left: -100px; top: 10px; background: radial-gradient(circle, rgba(103, 161, 255, 0.22), transparent 72%); }
-    .ambient-b { width: 520px; height: 520px; right: -140px; bottom: -140px; background: radial-gradient(circle, rgba(62, 229, 143, 0.12), transparent 72%); }
-    .shell { position: relative; width: min(1120px, calc(100vw - 20px)); margin: 0 auto; padding: 18px 0 26px; }
-    .topbar, .section-card, .phone-card, .manual-card, .device-item, .bottom-tabbar, .note-field, .setting-row {
-      border: 1px solid var(--line); background: var(--panel); backdrop-filter: blur(22px); box-shadow: var(--shadow);
+    #app { min-height: 100vh; }
+    .page {
+      width: min(100vw - 32px, 1840px);
+      margin: 0 auto;
+      padding: 0 0 28px;
     }
-    .topbar { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:16px 18px; border-radius:var(--radius-xl); }
-    .brand { display:flex; align-items:center; gap:14px; }
-    .brand-mark { width:42px; height:42px; border-radius:15px; display:grid; place-items:center; border:1px solid rgba(71,143,255,.28); background:linear-gradient(180deg, rgba(71,143,255,.2), rgba(71,143,255,.08)); color:var(--accent-2); }
-    .brand p, .brand strong { margin:0; line-height:1.1; }
-    .brand p { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:4px; }
-    .brand strong { font-size:22px; font-weight:700; letter-spacing:-.04em; }
-    .topbar-actions, .status-row, .sheet-actions, .clip-list, .settings-list { display:flex; gap:10px; flex-wrap:wrap; }
-    .theme-switch, .status-pill, .mini-pill, .pill-button, .connect-button, .ghost, .primary, .tab-item { display:inline-flex; align-items:center; justify-content:center; gap:8px; }
-    .theme-switch, .status-pill, .mini-pill { min-height:38px; padding:0 14px; border-radius:999px; border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--muted); }
-    .theme-switch.active, .mini-pill.success, .status-pill.success { border-color:rgba(62,229,143,.24); background:rgba(62,229,143,.12); color:var(--success); }
-    .mini-pill.warning, .status-pill.warning { border-color:rgba(244,187,79,.24); background:rgba(244,187,79,.12); color:var(--warning); }
-    .mini-pill.danger, .status-pill.danger { border-color:rgba(255,107,120,.24); background:rgba(255,107,120,.12); color:var(--danger); }
-    .mini-pill { font-size:13px; }
-    .status-row { padding:14px 2px 18px; }
-    .stage { display:flex; justify-content:center; }
-    .section-card { width:100%; border-radius:var(--radius-xl); padding:20px; background:var(--surface); }
-    .section-head { display:flex; align-items:start; justify-content:space-between; gap:14px; }
-    .section-kicker { margin:0 0 8px; color:var(--muted); font-size:11px; letter-spacing:.16em; text-transform:uppercase; }
-    .section-head h2, .phone-top h1 { margin:0; line-height:1.05; letter-spacing:-.05em; }
-    .section-head h2 { font-size:24px; }
-    .section-copy, .subtitle, .device-item span, .setting-row small { color:var(--muted); }
-    .section-copy, .subtitle { margin:10px 0 0; line-height:1.65; max-width:60ch; }
-    .phone-card { width:min(334px, 100%); margin:18px auto 0; padding:18px 18px 14px; border-radius:30px; background:var(--surface-dark); border-color:var(--line-dark); box-shadow:var(--shadow-dark); }
-    .phone-top { display:flex; align-items:center; justify-content:space-between; gap:10px; }
-    .phone-top h1 { font-size:18px; color:#f5f7fc; }
-    .pill-button { width:72px; height:34px; border-radius:999px; background:var(--accent); color:#fff; }
-    .subtitle { margin-bottom:12px; color:#b5c0d0; font-size:12px; max-width:280px; }
-    .manual-card { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 14px; border-radius:18px; background:#1a1f2e; border-color:#3d4a61; }
-    .manual-card strong { display:block; font-size:14px; color:#f5f7fc; }
-    .manual-card span { display:block; color:var(--muted-dark); font-size:12px; margin-top:4px; line-height:1.35; max-width:210px; }
-    .connect-button { min-width:72px; min-height:34px; padding:0 14px; border-radius:999px; background:var(--accent); color:#fff; }
-    .device-list { display:grid; gap:10px; margin-top:10px; }
-    .device-item { display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:30px; padding:8px 12px; border-radius:14px; background:#243045; border-color:#3d4a61; color:#f5f7fc; text-align:left; }
-    .device-item.warning, .device-item.neutral { background:#171c29; }
-    .device-item strong { font-size:12px; font-weight:600; }
-    .device-item span { font-size:12px; color:#adb8c9; }
-    .bottom-tabbar { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:6px; margin-top:12px; padding:6px; border-radius:20px; background:#171c29; border-color:#3d4a61; }
-    .tab-item { min-height:52px; flex-direction:column; gap:3px; border-radius:16px; background:transparent; color:#b9c4d3; }
-    .tab-item.active { background:rgba(71,143,255,.18); color:#6bd1ff; }
-    .tab-item svg { width:18px; height:18px; }
-    .note-field { width:100%; min-height:120px; margin-top:14px; padding:16px; border-radius:22px; background:rgba(255,255,255,.04); color:var(--text); resize:vertical; }
-    .ghost, .primary { min-height:40px; padding:0 14px; border-radius:14px; border:1px solid var(--line); color:var(--text); background:rgba(255,255,255,.04); }
-    .primary { border-color:rgba(71,143,255,.34); background:linear-gradient(180deg, rgba(71,143,255,.2), rgba(71,143,255,.08)); }
-    .clip-list { display:grid; gap:10px; margin-top:14px; }
-    .clip-item, .setting-row { padding:14px; border-radius:20px; border:1px solid var(--line); background:rgba(255,255,255,.03); }
-    .clip-item { display:grid; gap:4px; }
-    .clip-item strong { font-size:15px; line-height:1.4; }
-    .clip-item span { color:var(--muted); font-size:13px; }
-    .settings-list { display:grid; gap:10px; margin-top:14px; }
-    .setting-row { display:grid; gap:4px; }
-    .setting-row span { display:inline-flex; align-items:center; gap:8px; font-weight:600; }
-    @media (min-width:900px) { .stage { padding-top:6px; } .section-card { width:min(880px, 100%); } }
-    @media (max-width:700px) {
-      .shell { width:min(100vw - 12px, 100%); padding-top:10px; }
-      .topbar { flex-direction:column; align-items:start; padding:14px; }
-      .topbar-actions > * { flex:1 1 0; }
-      .section-card { padding:16px; }
-      .status-row { padding-bottom:14px; }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px 0 14px;
+    }
+    .brand { display: flex; align-items: center; gap: 14px; min-width: 0; }
+    .brand-mark {
+      width: 34px; height: 34px; border-radius: 12px; display: grid; place-items: center;
+      border: 1px solid var(--chip-border); background: var(--chip-bg); color: var(--page-text); box-shadow: var(--shadow);
+    }
+    .brand p, .brand strong { margin: 0; line-height: 1.1; }
+    .brand p { color: var(--page-muted); font-size: 12px; letter-spacing: 0.02em; margin-bottom: 6px; }
+    .brand strong { font-size: 18px; font-weight: 600; letter-spacing: -0.03em; }
+    .theme-pills { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+    .theme-pill {
+      min-height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--chip-border);
+      background: var(--chip-bg); color: var(--page-text); font-size: 13px; font-weight: 500;
+    }
+    .theme-pill.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .copy-block { padding: 10px 0 20px; max-width: 860px; }
+    .kicker { margin: 0 0 12px; font-size: 24px; font-weight: 700; letter-spacing: -0.05em; line-height: 1.1; }
+    .copy-block h1 {
+      margin: 0; font-size: clamp(17px, 2.3vw, 18px); line-height: 1.45; font-weight: 400; color: var(--page-muted); max-width: 760px;
+    }
+    .phone-mock {
+      width: min(334px, 100%);
+      min-height: 256px;
+      margin: 0;
+      padding: 16px 17px 14px;
+      border-radius: 30px;
+      background: var(--phone-bg);
+      border: 1px solid var(--phone-border);
+      overflow: hidden;
+    }
+    .phone-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .phone-header h2 { margin: 0; font-size: 18px; font-weight: 700; letter-spacing: -0.04em; color: var(--phone-text); }
+    .plus-pill, .connect-pill {
+      display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; background: var(--accent); color: #fff;
+      box-shadow: 0 8px 18px rgba(71, 143, 255, 0.24);
+    }
+    .plus-pill { width: 72px; height: 34px; }
+    .plus-pill svg { width: 14px; height: 14px; }
+    .phone-subtitle { margin: 10px 0 12px; color: #b5c0d0; font-size: 12px; line-height: 1.35; max-width: 280px; }
+    .manual-card {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 70px;
+      padding: 12px 12px 12px 13px; border-radius: 18px; border: 1px solid var(--phone-line); background: var(--phone-surface);
+    }
+    .manual-copy { min-width: 0; }
+    .manual-copy strong { display: block; color: var(--phone-text); font-size: 14px; line-height: 1.2; font-weight: 600; }
+    .manual-copy span { display: block; margin-top: 4px; color: var(--phone-subtext); font-size: 12px; line-height: 1.35; max-width: 220px; }
+    .connect-pill { min-width: 72px; min-height: 34px; padding: 0 12px; font-size: 13px; font-weight: 600; }
+    .device-stack { display: grid; gap: 12px; margin-top: 12px; }
+    .device-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 30px; padding: 6px 12px;
+      border-radius: 14px; border: 1px solid var(--phone-line); color: var(--phone-text);
+    }
+    .device-row strong { font-size: 12px; font-weight: 600; letter-spacing: -0.02em; }
+    .device-row span { color: var(--phone-subtext); font-size: 12px; }
+    .device-row.local { background: var(--phone-row-a); }
+    .device-row.relay, .device-row.inbox { background: var(--phone-row-b); }
+    .bottom-nav {
+      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin-top: 10px; padding: 0; height: 26px; align-items: center;
+    }
+    .nav-item {
+      display: flex; align-items: center; justify-content: center; gap: 4px; padding: 0; height: 26px; background: transparent;
+      color: #5fa7ff; font-size: 12px; font-weight: 700; letter-spacing: -0.02em;
+    }
+    .nav-item svg { width: 11px; height: 11px; }
+    @media (max-width: 700px) {
+      .page { width: min(100vw - 16px, 100%); }
+      .topbar { align-items: start; flex-direction: column; padding-bottom: 10px; }
+      .theme-pills { width: 100%; justify-content: stretch; }
+      .theme-pill { flex: 1 1 0; }
+      .copy-block { padding-bottom: 16px; }
     }
   </style>
 </head>
 <body>
-  <div class="canvas">
-    <div class="ambient ambient-a"></div>
-    <div class="ambient ambient-b"></div>
-    <div class="shell">
-      <header class="topbar">
-        <div class="brand">
-          <div class="brand-mark">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 7.5h15v8h-15zM8 18h8M10 4.5h4"/></svg>
-          </div>
-          <div><p>Venturis Lab</p><strong>Clippy</strong></div>
+  <div class="page">
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 7.5h15v8h-15zM8 18h8M10 4.5h4"/></svg>
         </div>
-        <div class="topbar-actions">
-          <span class="theme-switch active">System</span>
-          <span class="theme-switch">Calm</span>
-          <span class="theme-switch">Frosted</span>
+        <div>
+          <p>Clippy by Venturis Lab</p>
+          <strong>Cross-platform device link</strong>
         </div>
+      </div>
+      <div class="theme-pills">
+        <button class="theme-pill active" data-theme="system">System theme</button>
+        <button class="theme-pill" data-theme="dark">Dark</button>
+        <button class="theme-pill" data-theme="light">Light</button>
+      </div>
+    </div>
+
+    <section class="copy-block">
+      <p class="kicker">Mobile friendliness</p>
+      <h1>The app should collapse cleanly into a single-column device view with sticky actions and no hidden controls.</h1>
+    </section>
+
+    <section class="phone-mock" aria-label="Clippy mobile reference mock">
+      <header class="phone-header">
+        <h2>Devices</h2>
+        <button class="plus-pill" type="button" aria-label="Add device">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
       </header>
 
-      <div class="status-row">
-        <span class="status-pill success">Connected</span>
-        <span class="status-pill">Local LAN</span>
-        <span class="status-pill">System</span>
+      <p class="phone-subtitle">The app should collapse cleanly into a single-column device view with sticky actions and no hidden controls.</p>
+
+      <section class="manual-card">
+        <div class="manual-copy">
+          <strong>Add device manually</strong>
+          <span>Enter the IP shown on the other device.</span>
+        </div>
+        <button class="connect-pill" type="button">Connect</button>
+      </section>
+
+      <div class="device-stack">
+        <article class="device-row local">
+          <strong>Venturis-MacBook</strong>
+          <span>Local LAN</span>
+        </article>
+        <article class="device-row relay">
+          <strong>Pixel 7</strong>
+          <span>Relay fallback</span>
+        </article>
+        <article class="device-row inbox">
+          <strong>Clipboard inbox</strong>
+          <span>Recent clips</span>
+        </article>
       </div>
 
-      <main class="stage">
-        <section class="section-card">
-          <div class="section-head">
-            <div>
-              <p class="section-kicker">Devices</p>
-              <h2>Single-column device view.</h2>
-            </div>
-            <span class="mini-pill success">Connected</span>
-          </div>
-          <p class="section-copy">Keep the layout simple enough that the user always knows where they are.</p>
-
-          <section class="phone-card">
-            <div class="phone-top">
-              <h1>Devices</h1>
-              <button class="pill-button" aria-label="Add device">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
-              </button>
-            </div>
-            <p class="subtitle">The app should collapse cleanly into a single-column device view with sticky actions and no hidden controls.</p>
-            <div class="manual-card">
-              <div><strong>Add device manually</strong><span>Enter the IP shown on the other device.</span></div>
-              <button class="connect-button">Connect</button>
-            </div>
-            <div class="device-list">
-              <button class="device-item"><strong>Venturis-MacBook</strong><span>Local LAN</span></button>
-              <button class="device-item warning"><strong>Pixel 7</strong><span>Relay fallback</span></button>
-              <button class="device-item neutral"><strong>Clipboard inbox</strong><span>Recent clips</span></button>
-            </div>
-            <div class="bottom-tabbar">
-              <button class="tab-item active">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 7.5h15v8h-15zM8 18h8M10 4.5h4"/></svg>
-                <span>Devices</span>
-              </button>
-              <button class="tab-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5.5h8M9 4h6a1 1 0 0 1 1 1v1H8V5a1 1 0 0 1 1-1Zm-3 4h12v11H6z"/><path d="M9 9.5h6M9 12.5h6M9 15.5h4"/></svg>
-                <span>Clipboard</span>
-              </button>
-              <button class="tab-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5.5h6a1 1 0 0 1 1 1v1h-8v-1a1 1 0 0 1 1-1Z"/><path d="M8 8h8v10H8z"/><path d="M10 12h4"/></svg>
-                <span>Settings</span>
-              </button>
-            </div>
-          </section>
-        </section>
-      </main>
-    </div>
+      <footer class="bottom-nav" aria-label="Navigation">
+        <button class="nav-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 7.5h15v8h-15zM8 18h8M10 4.5h4"/></svg>
+          <span>Devices</span>
+        </button>
+        <button class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5.5h8M9 4h6a1 1 0 0 1 1 1v1H8V5a1 1 0 0 1 1-1Zm-3 4h12v11H6z"/><path d="M9 9.5h6M9 12.5h6M9 15.5h4"/></svg>
+          <span>Clipboard</span>
+        </button>
+        <button class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 6.5h7l2 2.5h4V18h-13z"/><path d="M8 11h6M8 14h6"/></svg>
+          <span>Files</span>
+        </button>
+        <button class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5.5h6a1 1 0 0 1 1 1v1h-8v-1a1 1 0 0 1 1-1Z"/><path d="M8 8h8v10H8z"/><path d="M10 12h4"/></svg>
+          <span>Settings</span>
+        </button>
+      </footer>
+    </section>
   </div>
 </body>
 </html>`;
