@@ -1,6 +1,6 @@
 # Clippy by Venturis Lab
 
-Clippy is a privacy-first device-linking app inspired by the KDE Connect experience, reworked with a calmer Venturis Lab brand and more honest platform behavior.
+Clippy is a privacy-first device-linking app inspired by the KDE Connect experience, reworked by Venturis Lab's brand and more honest platform behavior.
 
 This repository is currently a polished front-end prototype and product scaffold. It demonstrates:
 
@@ -12,16 +12,6 @@ This repository is currently a polished front-end prototype and product scaffold
 - encrypted clipboard and file-transfer concepts
 - honest iOS limitation language
 - iPhone install paths that do not require a paid Apple Developer account
-
-## iPhone distribution options
-
-Because there is no Apple Developer Program account in this phase, the app should be treated as a sideloadable or locally built iPhone app, not an App Store submission yet. The recommended paths are:
-
-- AltStore or SideStore sideloading for test devices
-- direct Xcode install with a free Apple ID for local development
-- a web companion fallback while the native build is being signed
-
-TestFlight and App Store release are later milestones once paid signing and review are available.
 
 ## What’s included
 
