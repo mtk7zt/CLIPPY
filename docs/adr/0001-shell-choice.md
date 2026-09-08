@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted for the current implementation pass.
+Frontend decision retained. The local-backend milestone adds Express and busboy through npm; the frontend remains plain HTML/CSS/JavaScript.
 
 ## Context
 

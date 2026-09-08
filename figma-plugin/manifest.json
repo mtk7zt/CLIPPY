@@ -1,0 +1,11 @@
+{
+  "name": "Clippy Keynote Builder",
+  "id": "1511391048852037421",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "allowedDomains": ["none"]
+  }
+}

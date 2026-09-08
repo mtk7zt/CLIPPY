@@ -1,5 +1,9 @@
 # Architecture
 
+## Current implementation
+
+The working v1 is the existing plain-JavaScript frontend served by Express, with a file-backed development store and SSE. See [Local backend v1](local-backend.md) for implemented contracts. The native/relay architecture below is a future target; it is not implemented by the local server.
+
 ## Overview
 
 Clippy is organized around a small shared trust core and platform-specific shells.

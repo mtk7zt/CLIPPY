@@ -7,3 +7,10 @@ coverage
 *.log
 token key.env
 *.env
+server/store/data.json
+server/store/data.json.tmp
+server/store/uploads/
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties

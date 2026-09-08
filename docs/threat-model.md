@@ -1,5 +1,7 @@
 # Threat model
 
+These device-transport invariants apply to the future native product. The current backend is a single-workspace development service without user authentication or end-to-end transport. Do not treat it as a production secure-device implementation. Its current boundaries are documented in [Local backend v1](local-backend.md).
+
 ## Assets
 
 - Device identity keys

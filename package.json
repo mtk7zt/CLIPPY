@@ -4,7 +4,19 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "check": "node --check app.js"
+    "build": "node scripts/build-dist.mjs",
+    "check": "node scripts/check.mjs",
+    "dev": "node server/index.js",
+    "start": "node server/index.js",
+    "preview:legacy": "node scripts/serve.mjs",
+    "test": "node --test server/tests/*.test.js",
+    "test:browser": "playwright test"
+  },
+  "dependencies": {
+    "busboy": "^1.6.0",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0"
   }
 }
-

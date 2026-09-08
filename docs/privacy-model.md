@@ -1,5 +1,7 @@
 # Privacy model
 
+The following rules describe the native product target. The current local backend stores notebook and upload contents on its filesystem without application-level encryption or authentication. It does not deliver content to physical devices. See [Local backend v1](local-backend.md).
+
 Clippy is designed to move only what the user explicitly allows.
 
 ## Rules

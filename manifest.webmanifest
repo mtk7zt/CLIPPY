@@ -1,0 +1,19 @@
+{
+  "name": "Clippy by Venturis Lab",
+  "short_name": "Clippy",
+  "description": "A privacy-first device link for iPhone and Windows.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#020913",
+  "theme_color": "#020913",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
